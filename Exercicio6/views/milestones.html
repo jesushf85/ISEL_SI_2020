@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>WebApplication for OpenId Auth</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/site.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../public/js/milestones.js"></script>
+</head>
+
+<body>
+    <div id="repository-data">
+        <h1>Your Github repository data is the following:
+    </div>
+    <table id="repository-data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>PRIVATE</th>
+            </tr>
+            <tr>
+                <th colspan="4">MILESTONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${repoData.map(repo => `
+            <tr id="${repo.id}">
+                <td>
+                    ${repo.id}
+                </td>
+                <td>
+                    ${repo.name}
+                </td>
+                <td>
+                    ${repo.isPrivate ? `Yes` : `No`}
+                </td>
+                <td>
+                    -
+                </td>
+            </tr>
+            ${repo.milestones.map(milestone => `
+            <tr>
+                <td id="${milestone.id}" colspan="3">
+                <span class="milestone-label">id:</span><span class="milestone-data">${milestone.id}</span>
+                <span class="milestone-label">title:</span><span class="milestone-data">${milestone.title}</span>
+                <span class="milestone-label">description:</span><span class="milestone-data">${milestone.description}</span>
+                <span class="milestone-label">create_date:</span><span class="milestone-data">${milestone.create_date}</span>
+                <span class="milestone-label">update_date:</span><span class="milestone-data">${milestone.update_date}</span>
+                <span class="milestone-label">due_date:</span><span class="milestone-data">${milestone.due_date}</span>
+                <span class="milestone-label">close_date:</span><span class="milestone-data">${milestone.close_date}</span>
+                </td>
+                <td>
+                    <span><input type="button" onclick="addDate(${milestone.id})" value="Add To Google Calendar"></input></span>
+                </td>
+            </tr>
+            `).join('')}
+            `).join('')}
+        </tbody>
+    </table>
+    </div>
+</body>
+
+</html>
